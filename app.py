@@ -3,7 +3,15 @@ import numpy as np
 import pickle
 import streamlit as st 
 
-model = pickle.load(open('model.pkl', 'rb')) 
+import pickle as pk
+
+try:
+    with open('model.pkl', 'rb') as f:
+        model = pk.load(f)
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    model = None
+
 
 st.header("Car Prediction ML model")
 
@@ -48,6 +56,11 @@ if st.button("Predict") :
 
 
     st.write(input_data_model)
+   if model is not None:
     car_price = model.predict(input_data_model)
+    st.markdown(f"### 🚗 Car Price Prediction: **{car_price[0]:.2f} Lakh**")
+else:
+    st.warning("Model is not available. Please check `model.pkl` file.")
+
 
     st.markdown('Car Price going to be ' + str(car_price[0])+' Lakh')
