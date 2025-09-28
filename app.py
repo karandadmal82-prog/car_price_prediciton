@@ -2,10 +2,9 @@ import pandas as pd
 import numpy as np 
 import pickle as pk
 import streamlit as st
+import sklearn 
 
-
-import pickle as pk
-model = pk.load(open('model.pkl', 'rb')) 
+model = pickle.load(open('model.pkl', 'rb')) 
 
 st.header("Car Prediction ML model")
 
